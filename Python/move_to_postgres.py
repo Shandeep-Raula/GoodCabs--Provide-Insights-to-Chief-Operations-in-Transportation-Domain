@@ -33,11 +33,11 @@ monthly_target_trips['month'] = pd.to_datetime(monthly_target_trips['month'])
 
 
 # Parameters for database connection
-db_name = "Goodcabs"
-user = "postgres"
-password = "subu2003"
-host = "localhost"
-port = 5432
+db_name = "db_name"
+user = "user_name"
+password = "password"
+host = "host_name"
+port = 'port_number
 
 
 # Load all the files to Postgres database
