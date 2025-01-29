@@ -105,3 +105,85 @@ FROM Rating_ranking
 WHERE High_Rank = 1 OR Low_Rank = 1
 ORDER BY City, Avg_passenger_rating DESC;
 
+
+-----------------------------------------------------------------------------------------------
+
+
+-- 4. Peak and Low Demand Months by City 
+-- For each city, identify the month with the highest total trips (peak demand)
+-- and the month with the lowest total trips (low demand). This analysis will help 
+-- Goodcabs understand seasonal patterns and adjust resources accordingly.
+
+WITH monthly_trip AS (	
+    SELECT 
+        c.city_name AS city,
+        EXTRACT(MONTH FROM f.date) AS month,
+        TO_CHAR(f.date, 'Month') AS month_name, 
+        COUNT(f.trip_id) AS total_trips
+    FROM dim_city c
+    JOIN fact_trips f ON c.city_id = f.city_id
+    GROUP BY city, month, month_name
+),
+city_rank AS (
+    SELECT  
+        city,
+        month,
+        month_name,
+        total_trips,
+        RANK() OVER (PARTITION BY city ORDER BY total_trips DESC) AS rank		
+    FROM monthly_trip 
+)
+SELECT city,
+		MAX(CASE WHEN rank = 1 THEN month_name END) AS Highest_Demand,
+		MAX(CASE WHEN rank = 6 THEN month_name END) AS Lowest_Demand
+FROM city_rank 
+GROUP BY city;
+
+
+-----------------------------------------------------------------------------------------------
+
+
+-- 5. Weekend vs. Weekday Trip Demand by City 
+-- Compare the total trips taken on weekdays versus weekends for each city over
+-- the six-month period. Identify cities with a strong preference for either weekend
+-- or weekday trips to understand demand variations.
+
+WITH day_type AS (	
+    SELECT 
+        c.city_name AS city,
+         d.day_type AS day_type,
+        COUNT(f.trip_id) AS total_trips
+    FROM dim_city c
+    JOIN fact_trips f ON c.city_id = f.city_id
+	JOIN dim_date d ON f.date = d.date
+    GROUP BY city, day_type
+	),
+day_type_col AS(
+		SELECT 
+				city,
+				SUM(CASE WHEN day_type='Weekday' THEN total_trips ELSE 0 END) AS weekday,
+				SUM(CASE WHEN day_type='Weekend' THEN total_trips ELSE 0 END) AS weekend
+		FROM day_type
+		GROUP BY city
+       			)
+SELECT city,
+	   weekday,
+	   weekend,
+	   CASE WHEN weekday > weekend THEN 'weekday'
+	   		WHEN weekend > weekday THEN 'weekend'
+			ELSE 'equal'
+		END AS preference
+FROM day_type_col
+
+
+-----------------------------------------------------------------------------------------------
+
+
+-- 6. Repeat Passenger Frequency and City Contribution Analysis 
+--  Analyse the frequency of trips taken by repeat passengers in each city 
+-- (e.g., % of repeat passengers taking 2 trips, 3 trips, etc.). Identify which
+-- cities contribute most to higher trip frequencies among repeat passengers, 
+-- and examine if there are distinguishable patterns between tourism-focused and
+-- business-focused cities.
+
+
