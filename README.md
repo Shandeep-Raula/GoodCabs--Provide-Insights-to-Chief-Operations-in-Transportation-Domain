@@ -12,6 +12,7 @@ As part of this initiative, the Goodcabs management team aims to assess the comp
 </br>
 
 
+
 ## Identify the Key Performance Indicators __*(KPI’s)*__
 
 | **Metric**                           | **Description**                                                                                 | **Formula**                                                                                         |
