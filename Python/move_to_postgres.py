@@ -37,7 +37,7 @@ db_name = "db_name"
 user = "user_name"
 password = "password"
 host = "host_name"
-port = 'port_number
+port = port_number
 
 
 # Load all the files to Postgres database
