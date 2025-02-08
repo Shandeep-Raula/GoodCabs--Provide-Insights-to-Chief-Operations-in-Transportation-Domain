@@ -229,8 +229,125 @@ GROUP BY city;
 -- across tourism versus business-focused cities.
 
 
+WITH passengers AS (
+    SELECT 
+        city_id, 
+        EXTRACT(MONTH FROM month) AS months,
+        SUM(new_passengers) AS actual_new_passengers
+    FROM fact_passenger_summary
+    GROUP BY city_id, months
+),
+trips AS (
+    SELECT  
+        t.city_id AS city_id,
+        EXTRACT(MONTH FROM t.date) AS months,
+        COUNT(t.trip_id) AS actual_trips,
+        ROUND(AVG(t.passenger_rating)::NUMERIC, 2) AS actual_avg_passenger_rating
+    FROM fact_trips t
+    GROUP BY city_id, months
+), 
+total_trips AS (
+    SELECT 
+        t.city_id, 
+        t.months,
+        t.actual_trips,
+        t.actual_avg_passenger_rating,
+        p.actual_new_passengers
+    FROM trips t
+    JOIN passengers p ON t.city_id = p.city_id
+        AND t.months = p.months
+),
+actual_trips AS (
+    SELECT  
+        t.city_id,
+        c.city_name AS city_name,
+        t.months,
+        t.actual_trips,
+        t.actual_new_passengers,
+        t.actual_avg_passenger_rating
+    FROM total_trips t
+    JOIN dim_city c ON t.city_id = c.city_id
+),
+target AS (
+    SELECT 
+        t.city_id AS city_id,
+        EXTRACT(MONTH FROM t.month) AS months,
+        t.total_target_trips AS total_target_trips,
+        p.target_new_passengers AS target_new_passengers
+    FROM monthly_target_trips t
+    JOIN monthly_target_new_passengers p ON t.city_id = p.city_id
+        AND t.month = p.month
+),
+target_trips AS (
+    SELECT 
+        t.city_id,
+        t.months,
+        t.total_target_trips,
+        t.target_new_passengers,
+        r.target_avg_passenger_rating AS target_avg_passenger_rating
+    FROM target t
+    JOIN city_target_passenger_rating r ON t.city_id = r.city_id
+),
+comparison AS (
+    SELECT  
+        t.city_id,
+        c.city_name AS city_name,
+        t.months,
+        t.total_target_trips,
+        total.actual_trips,
+        ROUND(((total.actual_trips - t.total_target_trips) * 100.0 / NULLIF(t.total_target_trips, 0))::NUMERIC, 2) AS trip_percent_diff,
+        CASE 
+            WHEN total.actual_trips >= t.total_target_trips THEN 'Met/Exceeded'
+            ELSE 'Missed'
+        END AS trip_target_status,
+        t.target_new_passengers,
+        total.actual_new_passengers,
+        ROUND(((total.actual_new_passengers - t.target_new_passengers) * 100.0 / NULLIF(t.target_new_passengers, 0))::NUMERIC, 2) AS passenger_percent_diff,
+        CASE 
+            WHEN total.actual_new_passengers >= t.target_new_passengers THEN 'Met/Exceeded'
+            ELSE 'Missed'
+        END AS passenger_target_status,
+        t.target_avg_passenger_rating,
+        total.actual_avg_passenger_rating,
+        ROUND(((total.actual_avg_passenger_rating - t.target_avg_passenger_rating) * 100.0 / NULLIF(t.target_avg_passenger_rating, 0))::NUMERIC, 2) AS rating_percent_diff,
+        CASE 
+            WHEN total.actual_avg_passenger_rating >= t.target_avg_passenger_rating THEN 'Met/Exceeded'
+            ELSE 'Missed'
+        END AS rating_target_status
+    FROM target_trips t
+    JOIN total_trips total 
+        ON t.city_id = total.city_id AND t.months = total.months
+    JOIN dim_city c 
+        ON t.city_id = c.city_id
+)
+
+SELECT 
+    city_name,
+    months,
+    total_target_trips,
+    actual_trips,
+    trip_percent_diff AS "Trip_%_Diff",
+    trip_target_status,
+    target_new_passengers,
+    actual_new_passengers,
+    passenger_percent_diff AS "Passenger_%_Diff",
+    passenger_target_status,
+    target_avg_passenger_rating,
+    actual_avg_passenger_rating,
+    rating_percent_diff AS "Rating_%_Diff",
+    rating_target_status
+FROM comparison;
 
 
+-----------------------------------------------------------------------------------------------
 
+
+-- 8. Highest and Lowest Repeat Passenger Rate (RPR%) by City and Month 
+-- • Analyse the Repeat Passenger Rate (RPR%) for each city across the 
+-- six-month period. Identify the top 2 and bottom 2 cities based on 
+-- their RPR% to determine which locations have the strongest and weakest rates. 
+-- • Similarly, analyse the RPR% by month across all cities and identify the 
+-- months with the highest and lowest repeat passenger rates. This will help to 
+-- pinpoint any seasonal patterns or months with higher repeat passenger loyalty.
 
 
