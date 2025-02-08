@@ -186,4 +186,51 @@ FROM day_type_col
 -- and examine if there are distinguishable patterns between tourism-focused and
 -- business-focused cities.
 
+WITH rep_pass AS (
+    SELECT 
+        c.city_name AS city,
+        d.trip_count AS total_trip,
+        SUM(d.repeat_passenger_count) AS repeat_passenger
+    FROM dim_repeat_trip_distribution d
+    JOIN dim_city c ON d.city_id = c.city_id
+    GROUP BY c.city_name, d.trip_count
+),
+total_pass AS (
+    SELECT 
+        city, 
+        total_trip, 
+        repeat_passenger,
+        SUM(repeat_passenger) OVER(PARTITION BY city) AS total
+    FROM rep_pass
+)
+SELECT 
+    city,
+    ROUND(SUM(CASE WHEN total_trip = '2-Trips' THEN repeat_passenger * 100.0 / total END), 2) AS "2-Trips",
+	ROUND(SUM(CASE WHEN total_trip = '3-Trips' THEN repeat_passenger * 100.0 / total END), 2) AS "3-Trips",
+	ROUND(SUM(CASE WHEN total_trip = '4-Trips' THEN repeat_passenger * 100.0 / total END), 2) AS "4-Trips",
+	ROUND(SUM(CASE WHEN total_trip = '5-Trips' THEN repeat_passenger * 100.0 / total END), 2) AS "5-Trips",
+	ROUND(SUM(CASE WHEN total_trip = '6-Trips' THEN repeat_passenger * 100.0 / total END), 2) AS "6-Trips",
+	ROUND(SUM(CASE WHEN total_trip = '7-Trips' THEN repeat_passenger * 100.0 / total END), 2) AS "7-Trips",
+	ROUND(SUM(CASE WHEN total_trip = '8-Trips' THEN repeat_passenger * 100.0 / total END), 2) AS "8-Trips",
+	ROUND(SUM(CASE WHEN total_trip = '9-Trips' THEN repeat_passenger * 100.0 / total END), 2) AS "9-Trips",
+	ROUND(SUM(CASE WHEN total_trip = '9-Trips' THEN repeat_passenger * 100.0 / total END), 2) AS "10-Trips"
+FROM total_pass
+GROUP BY city;
+
+
+-----------------------------------------------------------------------------------------------
+
+
+-- 7. Monthly Target Achievement Analysis for Key Metrics 
+-- For each city, evaluate monthly performance against targets for total trips,
+-- new passengers, and average passenger ratings from targets_db. Determine 
+-- if each metric met, exceeded, or missed the target, and calculate the percentage 
+-- difference. Identify any consistent patterns in target achievement, particularly 
+-- across tourism versus business-focused cities.
+
+
+
+
+
+
 
