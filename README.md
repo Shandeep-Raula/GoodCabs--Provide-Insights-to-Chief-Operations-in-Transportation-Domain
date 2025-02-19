@@ -26,8 +26,8 @@ As part of this initiative, the Goodcabs management team aims to assess the comp
 | **Average Fare per Km**              | Total revenue divided by the total distance traveled.                                           | `Total Fare / Total Distance Travelled`                                                           |
 | **Average Trip Distance**            | Total distance divided by the number of trips.                                                  | `Total Distance Travelled / Total Trips`                                                          |
 | **Trip Distance (Max, Min)**         | Maximum and minimum trip distances recorded.                                                    |  `MAX(Trip Distance)` and `MIN(Trip Distance)`                                                 |
-| **New Trips**                        | Trips by passengers making their first booking.                                                 | Count trips by passengers is new.                                                                  |
-| **Repeated Trips**                   | Trips by passengers who have booked more than once.                                             | Count trips by passengers is repeated.                                                             |
+| **New Trips**                        | Trips by passengers making their first booking.                                                 | `Count(passengers is new)`                                                                 |
+| **Repeated Trips**                   | Trips by passengers who have booked more than once.                                             | `Count(passengers is repeated)`                                                             |
 | **Total Passengers**                 | Total number of unique passengers.                                                              | `Sum of Total Passenger`                                                                           |
 | **New Passengers**                   | Number of passengers making their first trip.                                                   | `Sum of Total New Passengers`                                                                      |
 | **Repeat Passengers**                | Number of passengers who have booked multiple trips.                                            | `Sum of Total Reapeted Passenger`                                                                  |
@@ -40,8 +40,10 @@ As part of this initiative, the Goodcabs management team aims to assess the comp
 | **Average Passenger Rating Target**  | Percentage of average passenger ratings achieved compared to the target rating.                 | `(Average Passenger Rating / Rating Target) * 100`                                                |
 
 
+</br>
 
-
+## ERD Diagram
+![](https://github.com/Shandeep-Raula/GoodCabs/blob/main/ERD.png)
 
 
 
