@@ -42,8 +42,14 @@ As part of this initiative, the Goodcabs management team aims to assess the comp
 
 </br>
 
-## ERD Diagram
+## ER Diagram
 ![](https://github.com/Shandeep-Raula/GoodCabs/blob/main/ERD.png)
+
+## Tools
+- Python (Pandas , SQLalchemy)
+- SQL (PostgreSQL)
+- Power BI
+- VS Code & Jupyter Notebook
 
 
 
