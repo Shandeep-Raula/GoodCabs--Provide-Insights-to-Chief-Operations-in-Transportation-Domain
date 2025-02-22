@@ -11,7 +11,10 @@ As part of this initiative, the Goodcabs management team aims to assess the comp
 
 </br>
 
+## ER Diagram
+![](https://github.com/Shandeep-Raula/GoodCabs/blob/main/ERD.png)
 
+</br>
 
 ## Identify the Key Performance Indicators __*(KPI’s)*__
 
@@ -41,9 +44,6 @@ As part of this initiative, the Goodcabs management team aims to assess the comp
 
 
 </br>
-
-## ER Diagram
-![](https://github.com/Shandeep-Raula/GoodCabs/blob/main/ERD.png)
 
 ## Tools
 - Python (Pandas , SQLalchemy)
