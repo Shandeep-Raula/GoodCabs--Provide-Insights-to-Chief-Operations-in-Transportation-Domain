@@ -46,7 +46,7 @@ As part of this initiative, the Goodcabs management team aims to assess the comp
 </br>
 
 ## Tools
-- Python (Pandas , SQLalchemy)
+- Python (Numpy , Pandas , SQLalchemy , Matplotlib , Seaborn)
 - SQL (PostgreSQL)
 - Power BI
 - VS Code & Jupyter Notebook
