@@ -11,6 +11,12 @@ As part of this initiative, the Goodcabs management team aims to assess the comp
 
 </br>
 
+## Project Goals
+
+The analysis is centered around growing trip volumes, passenger satisfaction, and repeat bookings for Goodcabs. Through the determination of important trends and operational optimization, overall performance is aimed to be enhanced. These findings will assist Goodcabs in reaching its customer retention and growth goals.
+
+
+
 ## ER Diagram
 ![](https://github.com/Shandeep-Raula/GoodCabs/blob/main/ERD.png)
 
