@@ -17,7 +17,7 @@ The analysis is centered around growing trip volumes, passenger satisfaction, an
 
 </br>
 
-## ER Diagram
+## Database Schema
 ![](https://github.com/Shandeep-Raula/GoodCabs/blob/main/ERD.png)
 
 </br>
