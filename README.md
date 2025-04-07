@@ -3,25 +3,24 @@
 ##### __Domain__:  Transportation & Mobility          
 ##### __Function__: Operations 
 
-***
+
 
 ## Understanding the Business Persona
 __*Goodcabs*__, a cab service company established two years ago, has gained a strong foothold in the Indian market by focusing on tier-2 cities. Unlike other cab service providers, Goodcabs is committed to supporting local drivers, helping them make a sustainable living in their hometowns while ensuring excellent service to passengers. With operations in ten tier-2 cities across India, Goodcabs has set ambitious performance targets for 2024 to drive growth and improve passenger satisfaction. 
 
 As part of this initiative, the Goodcabs management team aims to assess the company’s performance across key metrics, including trip volume, passenger satisfaction, repeat passenger rate, trip distribution, and the balance between new and repeat passengers. 
 
-***
 
 ## Project Goals
 
 The analysis is centered around growing trip volumes, passenger satisfaction, and repeat bookings for Goodcabs. Through the determination of important trends and operational optimization, overall performance is aimed to be enhanced. These findings will assist Goodcabs in reaching its customer retention and growth goals.
 
-***
+
 
 ## Database Schema
 ![](https://github.com/Shandeep-Raula/GoodCabs/blob/main/ERD.png)
 
-***
+
 
 ## Identify the Key Performance Indicators __*(KPI’s)*__
 
@@ -50,7 +49,7 @@ The analysis is centered around growing trip volumes, passenger satisfaction, an
 | **Average Passenger Rating Target**  | Percentage of average passenger ratings achieved compared to the target rating.                 | `(Average Passenger Rating / Rating Target) * 100`                                                |
 
 
-***
+
 
 ## Tools
 - Python (Numpy , Pandas , SQLalchemy , Matplotlib , Seaborn)
@@ -58,10 +57,22 @@ The analysis is centered around growing trip volumes, passenger satisfaction, an
 - Power BI
 - VS Code & Jupyter Notebook
 
-***
+
 
 ## Insights Deep-Dive 
+### Top and Bottom Performing Cities
+- Jaipur (76,888), Lucknow (64,299), and Surat (54,843) are the top-performing cities, with Jaipur leading significantly.
+- Mysore (16,238), Coimbatore (21,104), and Visakhapatnam (28,366) are the bottom performers, with Mysore having the least trips; focused marketing and service improvements could help boost their performance.
+- There's a large gap between top and bottom cities (~60,238 trips)
+  
+![Top and Bottom Performing Cities](https://github.com/Shandeep-Raula/GoodCabs--Provide-Insights-to-Chief-Operations-in-Transportation-Domain/blob/main/Fig/Top%20%26%20Bottom.png)
 
+### Repeat Passenger Frequency and City Contribution Analysis
+- Cities like Visakhapatnam (51.25%), Jaipur (50.14%), Mysore (48.75%), and Kochi (47.67%) have the highest percentage of passengers returning for a second trip, showing strong customer retention after the first ride.
+- Across all cities, the repeat passenger percentage drops significantly as the number of trips increases (especially after 3–4 trips), indicating a challenge in maintaining long-term customer loyalty.
+- Lucknow and Surat have low initial repeat rates (~9-10%).
+  
+ ![City & Trip Count](https://github.com/Shandeep-Raula/GoodCabs--Provide-Insights-to-Chief-Operations-in-Transportation-Domain/blob/main/Fig/City%20%26%20Trip%20Count.png) 
 
 
 
