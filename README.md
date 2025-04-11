@@ -74,6 +74,14 @@ The analysis is centered around growing trip volumes, passenger satisfaction, an
   
  ![City & Trip Count](https://github.com/Shandeep-Raula/GoodCabs--Provide-Insights-to-Chief-Operations-in-Transportation-Domain/blob/main/Fig/City%20%26%20Trip%20Count.png) 
 
+### Average Ratings by City and Passenger Type
+- New passengers rate higher than repeated ones in all cities.
+- Jaipur, Kochi, Mysore, Visakhapatnam have the highest satisfaction (9.0/8.0).
+- Lucknow, Surat, Vadodara have the lowest repeated ratings (6.0).
+  
+![](https://github.com/Shandeep-Raula/GoodCabs--Provide-Insights-to-Chief-Operations-in-Transportation-Domain/blob/main/Fig/Average%20Rating%20by%20City%20and%20Passenger%20type.png)
+ 
+
 
 
 
